@@ -30,3 +30,84 @@
 *.exe
 *.out
 *.app
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executable files
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Files
+*.mod*
+*.cmd
+tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Dependency Files
+*.d
+
+# Xcode specific
+*.xcuserstate
+project.xcworkspace/
+*.swp
+
+# Build Folders
+build/
+Bin/
+obj/
+Release/
+Debug/
+*.log
+*.tmp
+
+# Other common ignores
+node_modules/
+*.log
+*.tmp
+
+# Ignore files for specific build systems
+# (Uncomment or add the ones you're using)
+#CMakeFiles/
+#CMakeCache.txt
+
+# Version Control System Folders
+.svn/
+CVS/
+
+# Backup & Temporary Files
+*~
+*.bak
+*.swp
+._*
+
+# OS generated files
+.DS_Store

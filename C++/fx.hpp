@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 double hit_sphere(const vec3& center, double radius, const ray& r){
-    const vec3 oc = r.origin() - center;
+    const vec3 oc = r.origin - center;
     const double a = dot(r.direction(),r.direction());
     const double b = 2.0 * dot(oc,r.direction());
     const double c = dot(oc,oc) - radius*radius;
@@ -22,8 +22,8 @@ vec3 colorItRed( const ray& r, const vec3& sphereCenter){
     const double t = hit_sphere(sphereCenter,0.5,r);
     if(t > 0) return vec3(1,0,0);
     //if(hit_sphere(sphereCenter,0.5,r)) return vec3(1,0,0);
-    const vec3 unit_direction = unit_vector(r.direction());
-    const double t2 = 0.5*(unit_direction.y()+ 1);
+    const vec3 unit_direction = r.direction_normalised;
+    const double t2 = 0.5*(unit_direction.e[1]+ 1);
     return (1.0-t2)*vec3(1.0,1.0,1.0) + t2*vec3(0.5,0.7,1.0);
 }
 vec3 colorIt( const ray& r, const vec3& sphereCenter){
@@ -33,7 +33,7 @@ vec3 colorIt( const ray& r, const vec3& sphereCenter){
         return 0.5*(N+1);
     }
     const vec3 unit_direction = unit_vector(r.direction());
-    const double t2 = 0.5*(unit_direction.y()+ 1);
+    const double t2 = 0.5*(unit_direction.e[1]+ 1);
     return (1.0-t2)*vec3(1.0,1.0,1.0) + t2*vec3(0.5,0.7,1.0);
 }
 
@@ -46,7 +46,7 @@ vec3 colorF(const ray& r, hitable *world){
     }
     else {
         const vec3 unit_direction = unit_vector(r.direction());
-        const double t = 0.5*(unit_direction.y()+1);
+        const double t = 0.5*(unit_direction.e[1]+1);
         return (1.0-t)*vec3(1.0) + t*vec3(0.5,0.7,1.0);
     }
 }

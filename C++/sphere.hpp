@@ -12,6 +12,13 @@
 #include "hitable.hpp"
 #include "lambertian.hpp"
 
+void get_sphere_uv(const vec3& p, double& u, double& v){
+    double phi = atan2(p.e[2],p.e[0]);
+    double theta = asin(p.e[1]);
+    u = 1-(phi + M_PI)/(2*M_PI);
+    v = (theta + M_PI/2) / M_PI ;
+}
+
 class sphere : public hitable
 {
 public:
@@ -55,7 +62,8 @@ public:
           center0Xtime0XcenterDivTime(center0 - time0 * centerDivTime),
           bb(surrounding_box(
               aabb(center0 - vec3(radius), center0 + vec3(radius)),
-              aabb(center1 - vec3(radius), center1 + vec3(radius)))){};
+              aabb(center1 - vec3(radius), center1 + vec3(radius)))
+              ){};
 
     inline sphere(vec3 cen0,
                   double r,
@@ -113,7 +121,7 @@ inline vec3 sphere::center(const double &time) const
     return center0Xtime0XcenterDivTime + time * centerDivTime;
 }
 inline bool sphere::hit(const ray &r, const double &t_min, const double &t_max, hit_record &rec) const
-{
+{   get_sphere_uv((rec.p-center0)/radius, rec.u, rec.v);
     const vec3 oc = r.origin - center(r.time);
     const double a = r.dotDD; // dot(r.direction(),r.direction());
     const double b = dot(oc, r.direction);

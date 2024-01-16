@@ -20,6 +20,7 @@ struct hit_record
     vec3 p;
     vec3 normal;
     const material *mat_ptr;
+    double u,v;
 };
 
 class hitable

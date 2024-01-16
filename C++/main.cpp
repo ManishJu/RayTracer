@@ -20,6 +20,10 @@
 #include "dielectric.hpp"
 #include "checker_texture.hpp"
 #include "noise_texture.hpp"
+#include "image_texture.hpp"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.hpp"
+
 
 using namespace std;
 typedef std::string str;
@@ -158,10 +162,15 @@ texture *checker = new checker_texture(
     new constant_texture(vec3(0.9, 0.9, 0.9)));
 hitable *ballscene()
 {
+    
+    int nx, ny, nn;
+    unsigned char *tex_data = stbi_load("earthmap.jpg", &nx, &ny, &nn, 0);
+    material *mat = new lambertian(new image_texture(tex_data, nx, ny));
+    
     texture *pertext = new noise_texture(10);
     hitable **list = new hitable *[2];
     list[0] = new sphere(vec3(0, -1000, 0), 1000, new lambertian(pertext));
-    list[1] = new sphere(vec3(0, 1, 0), 1, new lambertian(pertext));
+    list[1] = new sphere(vec3(0, 1, 0), 1, mat);
 
     return new hitable_list(list, 2);
 }
@@ -211,9 +220,9 @@ vec3 colorF2(const ray &r, const hitable *const world, const std::uint_fast8_t d
         vec3 attenuation;
         if (depth < 50 && rec.mat_ptr->scatter(r, rec, attenuation, scattered))
         {
-            return attenuation * colorF2(scattered, world, depth + 1);
+            return attenuation;//* colorF2(scattered, world, depth + 1);
         }
-        return zeroVector;
+        return attenuation;
     }
     else
     {

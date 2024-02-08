@@ -13,7 +13,7 @@
 
 class camera {
     public : 
-    camera(const vec3& lookFrom,
+    inline camera(const vec3& lookFrom,
     const vec3& lookAt ,
     const vec3& vup,
     const double& vfov,

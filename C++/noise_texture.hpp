@@ -12,9 +12,9 @@
 #include "perlin.hpp"
 class noise_texture : public texture {
 public:
-    noise_texture(): scale(1){}
-    noise_texture(double sc):scale(sc){}
-    virtual vec3 value( double u,double v, const vec3& p ) const {
+    inline noise_texture(): scale(1){}
+    inline noise_texture(double sc):scale(sc){}
+    inline virtual vec3 value(const double& u,const double& v, const vec3& p ) const {
         //return vec3(0.5)*(1+noise.turb(scale*p));
         //return vec3(1.0)*noise.turb(scale*p);
         return vec3(0.5)*(1+sin(scale*p.e[2] + 10*noise.turb(p)));

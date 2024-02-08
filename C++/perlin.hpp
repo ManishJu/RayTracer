@@ -33,7 +33,7 @@ inline long double  perlin_interp(vec3 c[2][2][2], long double  u, long double  
 class perlin
 {
 public:
-    long double  noise(const vec3 &p) const
+    inline long double  noise(const vec3 &p) const
     {
      
         const int i = floor(p.x());
@@ -50,7 +50,7 @@ public:
                     c[di][dj][dk] = ranvec[perm_x[(i + di) & 255] ^ perm_y[(j + dj) & 255] ^ perm_z[(k + dk) & 255]];
         return perlin_interp(c, u, v, w);
     }
-    long double  turb(const vec3 &p, int depth = 7) const
+    inline long double  turb(const vec3 &p, int depth = 7) const
     {
         long double  accum = 0;
         vec3 temp_p = p;
@@ -69,7 +69,7 @@ public:
     static int *perm_z;
 };
 
-static vec3 *perlin_generate()
+inline static vec3 *perlin_generate()
 {
     vec3 *p = new vec3[256];
     for (int i = 0; i < 256; ++i)
@@ -77,7 +77,7 @@ static vec3 *perlin_generate()
     return p;
 }
 
-void permute(int *p, int n)
+inline void permute(int *p, int n)
 {
     for (int i = n - 1; i > 0; i--)
     {

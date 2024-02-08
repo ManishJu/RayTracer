@@ -121,7 +121,7 @@ inline vec3 sphere::center(const double &time) const
     return center0Xtime0XcenterDivTime + time * centerDivTime;
 }
 inline bool sphere::hit(const ray &r, const double &t_min, const double &t_max, hit_record &rec) const
-{   get_sphere_uv((rec.p-center0)/radius, rec.u, rec.v);
+{
     const vec3 oc = r.origin - center(r.time);
     const double a = r.dotDD; // dot(r.direction(),r.direction());
     const double b = dot(oc, r.direction);
@@ -138,7 +138,9 @@ inline bool sphere::hit(const ray &r, const double &t_min, const double &t_max, 
             rec.p = r.point_at_parameter(temp);
             rec.normal = (rec.p - center(r.time)) / radius;
             rec.mat_ptr = mat;
+            get_sphere_uv((rec.p-center0)/radius, rec.u, rec.v);
             return true;
+            
         }
         const double temp2 = temp0+temp1;
         if (temp2 < t_max && temp2 > t_min)
@@ -147,6 +149,7 @@ inline bool sphere::hit(const ray &r, const double &t_min, const double &t_max, 
             rec.p = r.point_at_parameter(temp2);
             rec.normal = (rec.p - center(r.time)) / radius;
             rec.mat_ptr = mat;
+            get_sphere_uv((rec.p-center0)/radius, rec.u, rec.v);
             return true;
         }
     }

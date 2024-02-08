@@ -15,10 +15,13 @@
 class material
 {
 public:
-    virtual bool scatter(const ray &r_in, const hit_record &rec, vec3 &attenuation, ray &scattered) const = 0;
+    inline virtual bool scatter(const ray &r_in, const hit_record &rec, vec3 &attenuation, ray &scattered) const = 0;
+    inline virtual vec3 emitted(const double& u,const double& v, const vec3& p) const {
+        return vec3(0);
+    }
 };
 
-double schlick(const double cosine, const double ref_idx)
+inline double schlick(const double cosine, const double ref_idx)
 {
     double r0 = (1 - ref_idx) / (1 + ref_idx);
     r0 *= r0;

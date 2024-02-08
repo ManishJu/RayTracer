@@ -13,18 +13,18 @@
 
 class texture {
 public:
-    virtual vec3 value(double u,double v,const vec3& p) const = 0;
+    virtual vec3 value(const double& u,const double& v,const vec3& p) const = 0;
 };
 
 class constant_texture : public texture {
     
     public :
-    constant_texture() {}
-    constant_texture(const vec3& c) :  color(c) {}
-    virtual vec3 value(double u,double v,const vec3& p) const {
+    inline constant_texture() {}
+    inline constant_texture(const vec3& c) :  color(c) {}
+    inline virtual vec3 value(const double& u,const double& v,const vec3& p) const {
         return color;
     }
-    vec3 color;
+    const vec3 color;
     
 };
 #endif /* texture_hpp */
